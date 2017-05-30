@@ -1,6 +1,7 @@
-package com.sjx.coolweather.util;
+package com.sjx.coolweather;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,10 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sjx.coolweather.R;
 import com.sjx.coolweather.db.City;
 import com.sjx.coolweather.db.County;
 import com.sjx.coolweather.db.Province;
+import com.sjx.coolweather.util.HttpUtil;
+import com.sjx.coolweather.util.Utility;
 
 import org.litepal.crud.DataSupport;
 
@@ -110,20 +112,24 @@ public class ChooseAreaFragment extends Fragment {
                     selectedCity = cityList.get(position);
                     queryCounties();
                 }
-                //else if (currentLevel == LEVEL_COUNTY) {
-                //    String weatherId = countyList.get(position).getWeatherId();
-                //    if (getActivity() instanceof MainActivity) {
-                //        Intent intent = new Intent(getActivity(), WeatherActivity.class);
-                //        intent.putExtra("weather_id", weatherId);
-                //        startActivity(intent);
-                //        getActivity().finish();
-                //    } else if (getActivity() instanceof WeatherActivity) {
-                //        WeatherActivity activity = (WeatherActivity) getActivity();
-                //        activity.drawerLayout.closeDrawers();
-                //        activity.swipeRefresh.setRefreshing(true);
-                //        activity.requestWeather(weatherId);
-                //    }
-                //}
+                else if (currentLevel == LEVEL_COUNTY) {
+                    String weatherId = countyList.get(position).getWeatherId();
+                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id", weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
+                    //if (getActivity() instanceof MainActivity) {
+                    //    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                    //    intent.putExtra("weather_id", weatherId);
+                    //    startActivity(intent);
+                    //    getActivity().finish();
+                    //} else if (getActivity() instanceof WeatherActivity) {
+                    //    WeatherActivity activity = (WeatherActivity) getActivity();
+                    //    activity.drawerLayout.closeDrawers();
+                    //    activity.swipeRefresh.setRefreshing(true);
+                    //    activity.requestWeather(weatherId);
+                    //}
+                }
             }
         });
         backButton.setOnClickListener(new View.OnClickListener() {
