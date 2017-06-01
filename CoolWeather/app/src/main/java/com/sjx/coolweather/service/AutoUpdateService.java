@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 
+import com.sjx.coolweather.constant.UrlConstant;
 import com.sjx.coolweather.gson.Weather;
 import com.sjx.coolweather.util.HttpUtil;
 import com.sjx.coolweather.util.Utility;
@@ -53,7 +54,7 @@ public class AutoUpdateService extends Service {
             // 有缓存时直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
             String weatherId = weather.basic.weatherId;
-            String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=bc0418b57b2d4918819d3974ac1285d9";
+            String weatherUrl = UrlConstant.getWeatherUrl(weatherId);
             HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
@@ -78,7 +79,7 @@ public class AutoUpdateService extends Service {
      * 更新必应每日一图
      */
     private void updateBingPic() {
-        String requestBingPic = "http://guolin.tech/api/bing_pic";
+        String requestBingPic = UrlConstant.BING_IMAGE_URL;
         HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {

@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sjx.coolweather.constant.UrlConstant;
 import com.sjx.coolweather.db.City;
 import com.sjx.coolweather.db.County;
 import com.sjx.coolweather.db.Province;
@@ -156,7 +157,7 @@ public class ChooseAreaFragment extends Fragment {
             listView.setSelection(0);
             currentLevel = LEVEL_PROVINCE;
         } else {
-            String address = "http://guolin.tech/api/china";
+            String address = UrlConstant.getProvinceUrl();
             queryFromServer(address, "province");
         }
     }
@@ -178,7 +179,7 @@ public class ChooseAreaFragment extends Fragment {
             currentLevel = LEVEL_CITY;
         } else {
             int provinceCode = selectedProvince.getProvinceCode();
-            String address = "http://guolin.tech/api/china/" + provinceCode;
+            String address = UrlConstant.getCityUrl(provinceCode);
             queryFromServer(address, "city");
         }
     }
@@ -201,7 +202,7 @@ public class ChooseAreaFragment extends Fragment {
         } else {
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode = selectedCity.getCityCode();
-            String address = "http://guolin.tech/api/china/" + provinceCode + "/" + cityCode;
+            String address = UrlConstant.getCountyUrl(provinceCode, cityCode);
             queryFromServer(address, "county");
         }
     }
